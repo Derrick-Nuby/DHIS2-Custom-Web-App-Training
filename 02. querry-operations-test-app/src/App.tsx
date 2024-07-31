@@ -5,7 +5,7 @@ import DataQuerryExample from './components/DataQuerryExample';
 import LastLoginMessage from './components/LastLoginMessage';
 
 const appConfig = {
-    baseUrl: 'http://localhost:8080/dhis',
+    baseUrl: 'https://play.im.dhis2.org/stable-2-40-4-1',
     apiVersion: 40,
 };
 
