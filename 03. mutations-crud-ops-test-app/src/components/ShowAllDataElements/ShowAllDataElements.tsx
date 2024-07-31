@@ -38,33 +38,37 @@ const ShowAllDataElements: React.FC = () => {
 
     return (
         <div className={`${styles.middle}`}>
-            <h1>All the data elements</h1>
+            <div>
+                <h1>All the data elements</h1>
+                {loading && <CircularLoader />}
+                {error && <span>{`ERROR: ${error.message}`}</span>}
+                {data && (
+                    <ul>
+                        {data.dataElements.dataElements.map((element, index) => (
+                            <li key={index}>
+                                {element.displayName}
+                                <DeleteDataElement id={element.id} onDelete={() => handleDelete(element.id)} />
+                            </li>
+                        ))}
+                    </ul>
+                )}
+
+
+                {pager && (
+                    <Pagination
+                        page={pager.page}
+                        pageCount={pager.pageCount}
+                        pageSize={PAGE_SIZE}
+                        total={pager.total}
+                        isLastPage={!hasNextPage}
+                        onPageChange={handlePageChange}
+                        hidePageSizeSelect={true}
+                    />
+                )}
+            </div>
+
             <CreateDataElement refetch={refetch} />
-            {loading && <CircularLoader />}
-            {error && <span>{`ERROR: ${error.message}`}</span>}
-            {data && (
-                <ol>
-                    {data.dataElements.dataElements.map((element, index) => (
-                        <li key={index}>
-                            {element.displayName}
-                            <DeleteDataElement id={element.id} onDelete={() => handleDelete(element.id)} />
-                        </li>
-                    ))}
-                </ol>
-            )}
 
-
-            {pager && (
-                <Pagination
-                    page={pager.page}
-                    pageCount={pager.pageCount}
-                    pageSize={PAGE_SIZE}
-                    total={pager.total}
-                    isLastPage={!hasNextPage}
-                    onPageChange={handlePageChange}
-                    hidePageSizeSelect={true}
-                />
-            )}
         </div>
     );
 };
